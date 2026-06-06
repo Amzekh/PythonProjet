@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KidLearn - Apprendre en s'amusant!</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo" onclick="showHome()">
+        <span class="logo-icon">🎮</span>
+        <span class="logo-text">KidLearn</span>
+      </div>
+      <div class="header-stars">
+        <span class="star-anim">⭐</span>
+        <span id="total-score">0</span>
+        <span class="star-label">étoiles</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME SCREEN -->
+  <main id="home-screen" class="home-screen active">
+    <div class="hero">
+      <div class="hero-bubbles">
+        <span class="bubble b1">🚀</span>
+        <span class="bubble b2">🌈</span>
+        <span class="bubble b3">⭐</span>
+        <span class="bubble b4">🎯</span>
+        <span class="bubble b5">🦋</span>
+      </div>
+      <h1 class="hero-title">Apprends <span class="highlight">en jouant!</span></h1>
+      <p class="hero-subtitle">10 jeux magiques pour devenir un génie !</p>
+    </div>
+
+    <div class="games-grid">
+
+      <div class="game-card" onclick="openGame('math')" style="--card-color:#FF6B6B;--card-light:#FFE5E5">
+        <div class="card-glow"></div>
+        <div class="card-icon">🔢</div>
+        <h3>Calcul Magique</h3>
+        <p>Addition, soustraction, multiplication</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('memory')" style="--card-color:#4ECDC4;--card-light:#E0FAF8">
+        <div class="card-glow"></div>
+        <div class="card-icon">🃏</div>
+        <h3>Mémoire des Cartes</h3>
+        <p>Trouve les paires cachées</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('alphabet')" style="--card-color:#FFE66D;--card-light:#FFFBE0">
+        <div class="card-glow"></div>
+        <div class="card-icon">🔤</div>
+        <h3>Aventure Alphabet</h3>
+        <p>Apprends les lettres et les mots</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('animals')" style="--card-color:#A8E6CF;--card-light:#E8FBF3">
+        <div class="card-glow"></div>
+        <div class="card-icon">🦁</div>
+        <h3>Quiz Animaux</h3>
+        <p>Découvre les animaux du monde</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('counting')" style="--card-color:#FF8B94;--card-light:#FFE8EA">
+        <div class="card-glow"></div>
+        <div class="card-icon">🌟</div>
+        <h3>Compte les Étoiles</h3>
+        <p>Apprends à compter les objets</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('truefals')" style="--card-color:#C3A6FF;--card-light:#F0EAFF">
+        <div class="card-glow"></div>
+        <div class="card-icon">✅</div>
+        <h3>Vrai ou Faux</h3>
+        <p>Des faits incroyables sur la nature</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('scramble')" style="--card-color:#FFB347;--card-light:#FFF3E0">
+        <div class="card-glow"></div>
+        <div class="card-icon">📝</div>
+        <h3>Mots Mélangés</h3>
+        <p>Remets les lettres dans l'ordre</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐⭐⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('geo')" style="--card-color:#69D2E7;--card-light:#E4F8FC">
+        <div class="card-glow"></div>
+        <div class="card-icon">🌍</div>
+        <h3>Tour du Monde</h3>
+        <p>Explore les pays et capitales</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐⭐⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('colors')" style="--card-color:#F8A5C2;--card-light:#FFF0F6">
+        <div class="card-glow"></div>
+        <div class="card-icon">🎨</div>
+        <h3>Les Couleurs</h3>
+        <p>Reconnais et mélange les couleurs</p>
+        <div class="card-footer">
+          <span class="difficulty">⭐</span>
+          <span class="play-btn">Jouer →</span>
+        </div>
+      </div>
+
+      <div class="game-card" onclick="openGame('drawing')" style="--card-color:#B8E986;--card-light:#F0FAE4">
+        <div class="card-glow"></div>
+        <div class="card-icon">✏️</div>
+        <h3>Artiste en Herbe</h3>
+        <p>Dessine et crée librement</p>
+        <div class="card-footer">
+          <span class="difficulty">🎨</span>
+          <span class="play-btn">Créer →</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===================== MATH GAME ===================== -->
+  <section id="game-math" class="game-screen" style="--theme:#FF6B6B">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>🔢 Calcul Magique</h2>
+        <div class="game-score">Score: <span id="math-score">0</span></div>
+      </div>
+      <div class="difficulty-select" id="math-difficulty-select">
+        <h3>Choisir la difficulté</h3>
+        <div class="diff-btns">
+          <button class="diff-btn" onclick="startMath('easy')">🌟 Facile<br><small>+ et −</small></button>
+          <button class="diff-btn" onclick="startMath('medium')">🌟🌟 Moyen<br><small>+ − ×</small></button>
+          <button class="diff-btn" onclick="startMath('hard')">🌟🌟🌟 Difficile<br><small>+ − × ÷</small></button>
+        </div>
+      </div>
+      <div class="math-game-area hidden" id="math-area">
+        <div class="timer-bar"><div id="math-timer-fill" class="timer-fill"></div></div>
+        <div class="question-box" id="math-question">3 + 5 = ?</div>
+        <div class="math-options" id="math-options"></div>
+        <div class="feedback" id="math-feedback"></div>
+        <div class="math-progress">Question <span id="math-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="math-result">
+        <div class="result-emoji" id="math-result-emoji">🎉</div>
+        <h3 id="math-result-title">Bravo!</h3>
+        <p id="math-result-text"></p>
+        <button class="play-again-btn" onclick="resetMath()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MEMORY GAME ===================== -->
+  <section id="game-memory" class="game-screen" style="--theme:#4ECDC4">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>🃏 Mémoire des Cartes</h2>
+        <div class="game-score">Mouvements: <span id="memory-moves">0</span></div>
+      </div>
+      <div class="memory-info">
+        <span>Paires: <strong id="memory-pairs">0</strong>/8</span>
+        <button class="small-btn" onclick="initMemory()">Nouvelle partie</button>
+      </div>
+      <div class="memory-grid" id="memory-grid"></div>
+      <div class="game-result hidden" id="memory-result">
+        <div class="result-emoji">🎊</div>
+        <h3>Félicitations!</h3>
+        <p id="memory-result-text"></p>
+        <button class="play-again-btn" onclick="initMemory()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ALPHABET GAME ===================== -->
+  <section id="game-alphabet" class="game-screen" style="--theme:#FFD700">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>🔤 Aventure Alphabet</h2>
+        <div class="game-score">Score: <span id="alpha-score">0</span></div>
+      </div>
+      <div class="alpha-area" id="alpha-area">
+        <div class="alpha-question">
+          <div class="big-letter" id="alpha-letter">A</div>
+          <p class="alpha-prompt" id="alpha-prompt">Quel mot commence par cette lettre?</p>
+        </div>
+        <div class="alpha-options" id="alpha-options"></div>
+        <div class="feedback" id="alpha-feedback"></div>
+        <div class="alpha-progress">Question <span id="alpha-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="alpha-result">
+        <div class="result-emoji">🌟</div>
+        <h3 id="alpha-result-title">Super!</h3>
+        <p id="alpha-result-text"></p>
+        <button class="play-again-btn" onclick="startAlphabet()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ANIMALS QUIZ ===================== -->
+  <section id="game-animals" class="game-screen" style="--theme:#4CAF50">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>🦁 Quiz Animaux</h2>
+        <div class="game-score">Score: <span id="anim-score">0</span></div>
+      </div>
+      <div class="animals-area" id="animals-area">
+        <div class="animal-display">
+          <div class="animal-emoji" id="anim-emoji">🦁</div>
+          <div class="animal-fact-box" id="anim-fact-box" style="display:none">
+            <p id="anim-fact"></p>
+          </div>
+        </div>
+        <p class="question-text" id="anim-question">Quel est cet animal?</p>
+        <div class="anim-options" id="anim-options"></div>
+        <div class="feedback" id="anim-feedback"></div>
+        <div class="alpha-progress">Question <span id="anim-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="anim-result">
+        <div class="result-emoji">🐾</div>
+        <h3 id="anim-result-title">Expert animaux!</h3>
+        <p id="anim-result-text"></p>
+        <button class="play-again-btn" onclick="startAnimals()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COUNTING GAME ===================== -->
+  <section id="game-counting" class="game-screen" style="--theme:#FF8B94">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>🌟 Compte les Étoiles</h2>
+        <div class="game-score">Score: <span id="count-score">0</span></div>
+      </div>
+      <div class="counting-area" id="counting-area">
+        <p class="counting-prompt" id="count-prompt">Combien d'étoiles vois-tu?</p>
+        <div class="objects-display" id="count-objects"></div>
+        <div class="count-input-area">
+          <div class="count-buttons" id="count-buttons"></div>
+        </div>
+        <div class="feedback" id="count-feedback"></div>
+        <div class="alpha-progress">Question <span id="count-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="count-result">
+        <div class="result-emoji">🔢</div>
+        <h3 id="count-result-title">Excellent!</h3>
+        <p id="count-result-text"></p>
+        <button class="play-again-btn" onclick="startCounting()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRUE/FALSE GAME ===================== -->
+  <section id="game-truefals" class="game-screen" style="--theme:#9B59B6">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>✅ Vrai ou Faux</h2>
+        <div class="game-score">Score: <span id="tf-score">0</span></div>
+      </div>
+      <div class="tf-area" id="tf-area">
+        <div class="tf-category" id="tf-category">🌿 Nature</div>
+        <div class="tf-question-box" id="tf-question">Les éléphants sont les plus grands animaux du monde.</div>
+        <div class="tf-buttons">
+          <button class="tf-btn true-btn" onclick="answerTF(true)">✅ VRAI</button>
+          <button class="tf-btn false-btn" onclick="answerTF(false)">❌ FAUX</button>
+        </div>
+        <div class="tf-explanation hidden" id="tf-explanation"></div>
+        <div class="feedback" id="tf-feedback"></div>
+        <div class="alpha-progress">Question <span id="tf-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="tf-result">
+        <div class="result-emoji">🧠</div>
+        <h3 id="tf-result-title">Génie!</h3>
+        <p id="tf-result-text"></p>
+        <button class="play-again-btn" onclick="startTrueFalse()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCRAMBLE GAME ===================== -->
+  <section id="game-scramble" class="game-screen" style="--theme:#FF8C00">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>📝 Mots Mélangés</h2>
+        <div class="game-score">Score: <span id="scr-score">0</span></div>
+      </div>
+      <div class="scr-area" id="scr-area">
+        <p class="scr-category" id="scr-category">Catégorie: 🐾 Animaux</p>
+        <div class="scr-hint" id="scr-hint">🦁</div>
+        <p class="scr-instruction">Remets les lettres dans le bon ordre!</p>
+        <div class="scrambled-letters" id="scr-letters"></div>
+        <div class="answer-slots" id="scr-answer"></div>
+        <div class="scr-actions">
+          <button class="small-btn" onclick="clearScrAnswer()">Effacer</button>
+          <button class="small-btn" onclick="checkScramble()">Vérifier ✓</button>
+        </div>
+        <div class="feedback" id="scr-feedback"></div>
+        <div class="alpha-progress">Question <span id="scr-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="scr-result">
+        <div class="result-emoji">📚</div>
+        <h3 id="scr-result-title">Vocabulaire!</h3>
+        <p id="scr-result-text"></p>
+        <button class="play-again-btn" onclick="startScramble()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GEO GAME ===================== -->
+  <section id="game-geo" class="game-screen" style="--theme:#2196F3">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>🌍 Tour du Monde</h2>
+        <div class="game-score">Score: <span id="geo-score">0</span></div>
+      </div>
+      <div class="geo-area" id="geo-area">
+        <div class="geo-flag" id="geo-flag">🇫🇷</div>
+        <p class="question-text" id="geo-question">Quelle est la capitale de la France?</p>
+        <div class="geo-options" id="geo-options"></div>
+        <div class="feedback" id="geo-feedback"></div>
+        <div class="alpha-progress">Question <span id="geo-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="geo-result">
+        <div class="result-emoji">🗺️</div>
+        <h3 id="geo-result-title">Explorateur!</h3>
+        <p id="geo-result-text"></p>
+        <button class="play-again-btn" onclick="startGeo()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COLORS GAME ===================== -->
+  <section id="game-colors" class="game-screen" style="--theme:#E91E8C">
+    <div class="game-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>🎨 Les Couleurs</h2>
+        <div class="game-score">Score: <span id="col-score">0</span></div>
+      </div>
+      <div class="col-area" id="col-area">
+        <div class="col-tabs">
+          <button class="col-tab active" onclick="setColMode('name')">Trouver la couleur</button>
+          <button class="col-tab" onclick="setColMode('mix')">Mélange magique</button>
+        </div>
+        <div id="col-name-mode">
+          <p class="question-text">Clique sur la couleur <strong id="col-target-name">ROUGE</strong></p>
+          <div class="color-swatches" id="col-swatches"></div>
+        </div>
+        <div id="col-mix-mode" class="hidden">
+          <p class="question-text">Mélange pour faire <strong id="col-mix-target">ORANGE</strong></p>
+          <div class="mix-area">
+            <div class="mix-colors" id="mix-colors"></div>
+            <div class="mix-result" id="mix-result">
+              <div class="mix-preview" id="mix-preview"></div>
+              <p id="mix-result-text">Sélectionne 2 couleurs</p>
+            </div>
+          </div>
+        </div>
+        <div class="feedback" id="col-feedback"></div>
+        <div class="alpha-progress">Question <span id="col-q-num">1</span>/10</div>
+      </div>
+      <div class="game-result hidden" id="col-result">
+        <div class="result-emoji">🌈</div>
+        <h3>Artiste des couleurs!</h3>
+        <p id="col-result-text"></p>
+        <button class="play-again-btn" onclick="startColors()">Rejouer</button>
+        <button class="home-btn" onclick="showHome()">Accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DRAWING GAME ===================== -->
+  <section id="game-drawing" class="game-screen" style="--theme:#66BB6A">
+    <div class="game-container drawing-container">
+      <div class="game-header">
+        <button class="back-btn" onclick="showHome()">← Retour</button>
+        <h2>✏️ Artiste en Herbe</h2>
+        <div class="draw-actions">
+          <button class="small-btn" onclick="clearCanvas()">🗑️ Effacer</button>
+          <button class="small-btn" onclick="saveDrawing()">💾 Sauver</button>
+        </div>
+      </div>
+      <div class="draw-toolbar">
+        <div class="color-palette" id="draw-palette"></div>
+        <div class="brush-sizes">
+          <button class="brush-btn active" onclick="setBrush(5)" style="width:14px;height:14px">●</button>
+          <button class="brush-btn" onclick="setBrush(12)" style="width:20px;height:20px">●</button>
+          <button class="brush-btn" onclick="setBrush(24)" style="width:28px;height:28px">●</button>
+          <button class="brush-btn" onclick="setBrush(40)" style="width:36px;height:36px">●</button>
+        </div>
+        <button class="eraser-btn" id="eraser-btn" onclick="toggleEraser()">🧹 Gomme</button>
+      </div>
+      <canvas id="draw-canvas" class="draw-canvas"></canvas>
+      <div class="draw-templates">
+        <p>Modèles:</p>
+        <button onclick="setTemplate('maison')">🏠</button>
+        <button onclick="setTemplate('soleil')">☀️</button>
+        <button onclick="setTemplate('arbre')">🌳</button>
+        <button onclick="setTemplate('chat')">🐱</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

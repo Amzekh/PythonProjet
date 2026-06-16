@@ -35,44 +35,63 @@ export function spreadDir(dir, spread, out) {
 // ---------- weapon meshes ----------
 export function buildWeaponMesh(type) {
   const g = new THREE.Group();
-  const steel = new THREE.MeshStandardMaterial({ color: 0x2a3146, roughness: 0.4, metalness: 0.8 });
-  const dark = new THREE.MeshStandardMaterial({ color: 0x14171f, roughness: 0.6, metalness: 0.5 });
+  const steel = new THREE.MeshStandardMaterial({ color: 0x3a4256, roughness: 0.35, metalness: 0.85 });
+  const dark = new THREE.MeshStandardMaterial({ color: 0x14171f, roughness: 0.55, metalness: 0.55 });
+  const grip = new THREE.MeshStandardMaterial({ color: 0x0c0e13, roughness: 0.8, metalness: 0.2 });
   const neon = new THREE.MeshBasicMaterial({ color: 0x7ff0ff });
   const orange = new THREE.MeshBasicMaterial({ color: 0xff8a3c });
 
-  const add = (mat, w, h, d, x, y, z) => {
+  // box
+  const b = (mat, w, h, d, x, y, z) => {
     const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
     m.position.set(x, y, z); m.castShadow = true; g.add(m); return m;
   };
+  // cylinder aligned along +Z (rt=top radius, rb=bottom radius, len)
+  const cyl = (mat, rt, rb, len, x, y, z, seg = 12) => {
+    const geo = new THREE.CylinderGeometry(rt, rb, len, seg); geo.rotateX(Math.PI / 2);
+    const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m;
+  };
 
   if (type === 'sword') {
-    // grip at origin, blade extends +Y (held upward in hand)
-    add(dark, 0.07, 0.26, 0.07, 0, -0.05, 0);            // handle
-    add(steel, 0.26, 0.06, 0.1, 0, 0.1, 0);              // guard
-    add(steel, 0.05, 1.25, 0.14, 0, 0.78, 0);            // blade
-    add(neon, 0.025, 1.2, 0.02, 0.03, 0.78, 0);          // glowing edge
-    add(neon, 0.025, 1.2, 0.02, -0.03, 0.78, 0);
+    b(grip, 0.06, 0.3, 0.06, 0, -0.12, 0);               // wrapped handle
+    b(dark, 0.05, 0.06, 0.05, 0, 0.06, 0);               // pommel collar
+    b(steel, 0.32, 0.07, 0.12, 0, 0.06, 0);              // cross guard
+    b(neon, 0.36, 0.025, 0.025, 0, 0.06, 0);             // guard glow
+    b(steel, 0.055, 1.25, 0.16, 0, 0.74, 0);             // blade
+    b(steel, 0.055, 0.18, 0.02, 0, 1.42, 0);             // tip (thinner)
+    b(neon, 0.012, 1.3, 0.02, 0, 0.76, 0.05);            // fuller glow front
+    b(neon, 0.012, 1.3, 0.02, 0, 0.76, -0.05);           // fuller glow back
   } else if (type === 'pistol') {
-    // barrel along +Z, grip down
-    add(steel, 0.1, 0.16, 0.34, 0, 0, 0.05);
-    add(dark, 0.08, 0.2, 0.1, 0, -0.16, -0.05);          // grip
-    add(neon, 0.03, 0.03, 0.12, 0, 0.04, 0.2);           // sight glow
+    b(steel, 0.1, 0.14, 0.34, 0, 0, 0.06);               // slide
+    cyl(dark, 0.035, 0.035, 0.12, 0, 0.0, 0.26);         // barrel
+    b(grip, 0.085, 0.22, 0.11, 0, -0.16, -0.04);         // grip (angled look)
+    b(dark, 0.09, 0.05, 0.12, 0, -0.06, -0.02);          // trigger guard
+    b(neon, 0.02, 0.02, 0.04, 0, 0.09, 0.16);            // rear sight glow
+    b(neon, 0.05, 0.015, 0.015, 0, 0.0, -0.12);          // back panel light
   } else if (type === 'smg') {
-    add(dark, 0.12, 0.18, 0.5, 0, 0, 0.1);
-    add(steel, 0.06, 0.06, 0.3, 0, 0.02, 0.32);          // barrel
-    add(dark, 0.08, 0.24, 0.1, 0, -0.18, -0.02);         // grip
-    add(dark, 0.06, 0.2, 0.1, 0, -0.14, 0.16);           // mag
-    add(neon, 0.02, 0.02, 0.2, 0, 0.1, 0.1);
+    b(dark, 0.11, 0.17, 0.46, 0, 0, 0.12);               // receiver
+    cyl(steel, 0.03, 0.03, 0.26, 0, 0.03, 0.42);         // barrel
+    b(dark, 0.05, 0.05, 0.1, 0, 0.11, 0.18);             // top rail
+    b(grip, 0.08, 0.22, 0.1, 0, -0.18, 0.0);             // grip
+    b(grip, 0.06, 0.26, 0.09, 0, -0.12, 0.18);           // magazine
+    b(dark, 0.1, 0.13, 0.1, 0, 0.0, -0.2);               // stock
+    b(neon, 0.015, 0.015, 0.26, 0.06, 0.07, 0.1);        // side light
   } else if (type === 'shotgun') {
-    add(dark, 0.13, 0.13, 0.66, 0, 0, 0.18);
-    add(steel, 0.12, 0.06, 0.4, 0, 0.05, 0.34);          // double barrel top
-    add(dark, 0.1, 0.18, 0.14, 0, -0.14, -0.16);         // grip/stock
-    add(orange, 0.02, 0.02, 0.16, 0, 0.1, 0.34);
+    cyl(dark, 0.05, 0.05, 0.7, 0.045, 0.03, 0.22);       // barrel top
+    cyl(dark, 0.05, 0.05, 0.7, -0.045, 0.03, 0.22);      // barrel bottom (double)
+    b(steel, 0.13, 0.05, 0.5, 0, -0.04, 0.18);           // pump under
+    b(grip, 0.09, 0.16, 0.16, 0, -0.13, -0.18);          // grip
+    b(grip, 0.1, 0.14, 0.18, 0, -0.04, -0.34);           // stock
+    b(orange, 0.02, 0.02, 0.04, 0, 0.09, 0.55);          // bead sight
   } else if (type === 'rocket') {
-    add(dark, 0.18, 0.18, 0.8, 0, 0, 0.2);               // tube
-    add(steel, 0.2, 0.2, 0.14, 0, 0, 0.5);               // muzzle ring
-    add(dark, 0.08, 0.2, 0.1, 0, -0.16, 0.02);           // grip
-    add(orange, 0.06, 0.06, 0.06, 0, 0.12, 0.0);         // sight
+    cyl(dark, 0.11, 0.11, 0.84, 0, 0, 0.22, 16);         // tube
+    cyl(steel, 0.15, 0.13, 0.12, 0, 0, 0.62, 16);        // muzzle flare
+    cyl(steel, 0.14, 0.16, 0.1, 0, 0, -0.2, 16);         // rear exhaust
+    b(dark, 0.06, 0.16, 0.12, 0, 0.13, 0.05);            // top scope mount
+    cyl(dark, 0.03, 0.03, 0.16, 0, 0.2, 0.05);           // scope
+    b(grip, 0.08, 0.2, 0.1, 0, -0.18, 0.04);             // grip
+    b(orange, 0.04, 0.04, 0.04, 0, 0.2, 0.14);           // scope glow
+    b(orange, 0.16, 0.02, 0.02, 0, 0.0, 0.6);            // muzzle ring glow
   }
   return g;
 }

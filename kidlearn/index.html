@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KidLearn — 10 mini-jeux magiques pour apprendre en s'amusant : calcul, lecture, animaux, géographie, dessin et plus !">
+  <meta name="theme-color" content="#FFB703">
+  <title>KidLearn — Apprends en t'amusant !</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦊</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Decorative background blobs -->
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+
+  <!-- ===================== TOP BAR ===================== -->
+  <header class="topbar">
+    <button class="logo" onclick="goHome()" aria-label="Accueil KidLearn">
+      <span class="logo-emoji">🦊</span>
+      <span class="logo-name">Kid<em>Learn</em></span>
+    </button>
+    <div class="topbar-right">
+      <div class="chip chip-streak" title="Jours d'affilée">🔥<b id="streak-count">0</b></div>
+      <div class="chip chip-stars" title="Mes étoiles">⭐<b id="star-count">0</b></div>
+      <button class="chip chip-level" onclick="openProfile()" title="Mon niveau">
+        <span id="level-label">Niv. 1</span>
+        <span class="level-bar"><span id="level-fill"></span></span>
+      </button>
+      <button class="icon-btn" id="sound-btn" onclick="toggleSound()" aria-label="Activer ou couper le son">🔊</button>
+      <button class="icon-btn avatar-btn" id="avatar-btn" onclick="openProfile()" aria-label="Mon profil">🦊</button>
+    </div>
+  </header>
+
+  <!-- ===================== HOME ===================== -->
+  <main id="screen-home" class="screen active">
+    <section class="hero clay">
+      <div class="hero-mascot"><span id="hero-avatar">🦊</span></div>
+      <div class="hero-text">
+        <h1 id="greeting">Salut, champion&nbsp;! 👋</h1>
+        <p>Prêt pour une nouvelle aventure&nbsp;? Choisis ton jeu et gagne des étoiles&nbsp;!</p>
+        <button class="daily-chip" id="daily-chip">🎯 Défi du jour</button>
+      </div>
+      <span class="hero-spark s1">✨</span>
+      <span class="hero-spark s2">✨</span>
+    </section>
+
+    <div class="games-grid" id="games-grid"></div>
+
+    <footer class="footer">Fait avec ❤️ pour les petits curieux</footer>
+  </main>
+
+  <!-- ===================== MATH ===================== -->
+  <section id="screen-math" class="screen game-screen" style="--c:#FF6B6B;--cd:#E14B4B;--cs:#FFE3E3">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🔢 Calcul Magique</h2>
+        <div class="chip score-chip">✓ <b id="math-score">0</b></div>
+      </div>
+
+      <div id="math-setup" class="setup-area">
+        <p class="setup-title">Choisis ta difficulté</p>
+        <div class="setup-btns">
+          <button class="btn3d diff-easy" onclick="startMath('easy')">🐣<span>Facile</span><small>+ et −</small></button>
+          <button class="btn3d diff-med" onclick="startMath('medium')">🐥<span>Moyen</span><small>+ − ×</small></button>
+          <button class="btn3d diff-hard" onclick="startMath('hard')">🦅<span>Difficile</span><small>+ − × ÷</small></button>
+        </div>
+      </div>
+
+      <div id="math-play" class="hidden">
+        <div class="timer-track"><div class="timer-fill" id="math-timer-fill"></div></div>
+        <div class="big-question" id="math-question">3 + 5 = ?</div>
+        <div class="opt-grid" id="math-options"></div>
+        <div class="feedback" id="math-feedback"></div>
+        <div class="qdots" id="math-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MEMORY ===================== -->
+  <section id="screen-memory" class="screen game-screen" style="--c:#34C8BE;--cd:#1FA89F;--cs:#D9F7F5">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🃏 Mémo Rigolo</h2>
+        <div class="chip score-chip">🎯 <b id="memory-moves">0</b></div>
+      </div>
+      <div class="memory-bar">
+        <div class="chip">Paires : <b id="memory-pairs">0</b>/8</div>
+        <button class="mini-btn" onclick="GAME_INIT.memory()">🔄 Recommencer</button>
+      </div>
+      <div class="memory-grid" id="memory-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ALPHABET ===================== -->
+  <section id="screen-alphabet" class="screen game-screen" style="--c:#FFB703;--cd:#DE9E00;--cs:#FFF1CC">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🔤 Aventure Alphabet</h2>
+        <div class="chip score-chip">✓ <b id="alpha-score">0</b></div>
+      </div>
+      <div class="alpha-stage">
+        <div class="alpha-letter-wrap">
+          <div class="big-letter" id="alpha-letter">A</div>
+          <button class="speak-btn" id="alpha-speak" aria-label="Écouter la lettre">🔊</button>
+        </div>
+        <p class="stage-prompt">Quel mot commence par cette lettre&nbsp;?</p>
+      </div>
+      <div class="opt-grid" id="alpha-options"></div>
+      <div class="feedback" id="alpha-feedback"></div>
+      <div class="qdots" id="alpha-dots"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ANIMALS ===================== -->
+  <section id="screen-animals" class="screen game-screen" style="--c:#52B788;--cd:#3E9A70;--cs:#DDF3E8">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🦁 Quiz Animaux</h2>
+        <div class="chip score-chip">✓ <b id="anim-score">0</b></div>
+      </div>
+      <div class="anim-stage">
+        <div class="anim-emoji" id="anim-emoji">🦁</div>
+        <p class="stage-prompt">Quel est cet animal&nbsp;?</p>
+      </div>
+      <div class="opt-grid" id="anim-options"></div>
+      <div class="fact-card hidden" id="anim-fact"></div>
+      <div class="feedback" id="anim-feedback"></div>
+      <div class="qdots" id="anim-dots"></div>
+    </div>
+  </section>
+
+  <!-- ===================== COUNTING ===================== -->
+  <section id="screen-counting" class="screen game-screen" style="--c:#FF7AA2;--cd:#E25C85;--cs:#FFE4ED">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🌟 Compte les Étoiles</h2>
+        <div class="chip score-chip">✓ <b id="count-score">0</b></div>
+      </div>
+      <p class="stage-prompt" id="count-prompt">Combien d'objets vois-tu&nbsp;?</p>
+      <div class="count-stage" id="count-objects"></div>
+      <div class="count-grid" id="count-buttons"></div>
+      <div class="feedback" id="count-feedback"></div>
+      <div class="qdots" id="count-dots"></div>
+    </div>
+  </section>
+
+  <!-- ===================== TRUE / FALSE ===================== -->
+  <section id="screen-truefals" class="screen game-screen" style="--c:#9B5DE5;--cd:#7F44C6;--cs:#EFE2FC">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🤔 Vrai ou Faux</h2>
+        <div class="chip score-chip">✓ <b id="tf-score">0</b></div>
+      </div>
+      <div class="tf-category chip" id="tf-category">🌿 Nature</div>
+      <div class="tf-question" id="tf-question">…</div>
+      <div class="tf-btns">
+        <button class="btn3d tf-true" id="tf-true" onclick="answerTF(true)">👍 VRAI</button>
+        <button class="btn3d tf-false" id="tf-false" onclick="answerTF(false)">👎 FAUX</button>
+      </div>
+      <div class="fact-card hidden" id="tf-expl"></div>
+      <div class="feedback" id="tf-feedback"></div>
+      <div class="qdots" id="tf-dots"></div>
+    </div>
+  </section>
+
+  <!-- ===================== SCRAMBLE ===================== -->
+  <section id="screen-scramble" class="screen game-screen" style="--c:#F4845F;--cd:#D96A47;--cs:#FDE7DE">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🧩 Mots Mélangés</h2>
+        <div class="chip score-chip">✓ <b id="scr-score">0</b></div>
+      </div>
+      <div class="scr-stage">
+        <div class="chip" id="scr-category">🐾 Animaux</div>
+        <div class="scr-hint" id="scr-hint">🦁</div>
+        <p class="stage-prompt">Touche les lettres pour former le mot&nbsp;!</p>
+      </div>
+      <div class="scr-slots" id="scr-slots"></div>
+      <div class="scr-letters" id="scr-letters"></div>
+      <div class="scr-actions">
+        <button class="mini-btn" onclick="clearScramble()">🧹 Effacer</button>
+        <button class="mini-btn" onclick="hintScramble()">💡 Indice</button>
+      </div>
+      <div class="feedback" id="scr-feedback"></div>
+      <div class="qdots" id="scr-dots"></div>
+    </div>
+  </section>
+
+  <!-- ===================== GEO ===================== -->
+  <section id="screen-geo" class="screen game-screen" style="--c:#3FA7D6;--cd:#2C8DB8;--cs:#DFF1FA">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🌍 Tour du Monde</h2>
+        <div class="chip score-chip">✓ <b id="geo-score">0</b></div>
+      </div>
+      <div class="geo-stage">
+        <div class="geo-flag" id="geo-flag">🇫🇷</div>
+        <p class="stage-prompt" id="geo-question">Quelle est la capitale&nbsp;?</p>
+      </div>
+      <div class="opt-grid" id="geo-options"></div>
+      <div class="fact-card hidden" id="geo-fact"></div>
+      <div class="feedback" id="geo-feedback"></div>
+      <div class="qdots" id="geo-dots"></div>
+    </div>
+  </section>
+
+  <!-- ===================== COLORS ===================== -->
+  <section id="screen-colors" class="screen game-screen" style="--c:#EF5DA8;--cd:#D14390;--cs:#FDE2F0">
+    <div class="game-panel clay">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>🎨 Magie des Couleurs</h2>
+        <div class="chip score-chip">✓ <b id="col-score">0</b></div>
+      </div>
+      <div class="col-tabs">
+        <button class="col-tab active" id="col-tab-name" onclick="setColMode('name', this)">🔍 Trouver</button>
+        <button class="col-tab" id="col-tab-mix" onclick="setColMode('mix', this)">🧪 Mélanger</button>
+      </div>
+      <div id="col-name-mode">
+        <p class="stage-prompt">Touche la couleur <span class="col-target" id="col-target-name">ROUGE</span></p>
+        <div class="col-swatches" id="col-swatches"></div>
+      </div>
+      <div id="col-mix-mode" class="hidden">
+        <p class="stage-prompt">Mélange 2 couleurs pour faire <span class="col-target" id="mix-target">ORANGE</span></p>
+        <div class="mix-wrap">
+          <div class="mix-colors" id="mix-colors"></div>
+          <div class="mix-pot">
+            <div class="mix-preview" id="mix-preview"></div>
+            <p id="mix-text">Choisis 2 couleurs</p>
+          </div>
+        </div>
+      </div>
+      <div class="feedback" id="col-feedback"></div>
+      <div class="qdots" id="col-dots"></div>
+    </div>
+  </section>
+
+  <!-- ===================== DRAWING ===================== -->
+  <section id="screen-drawing" class="screen game-screen" style="--c:#7BC950;--cd:#62AC3B;--cs:#E8F7DD">
+    <div class="game-panel clay draw-panel">
+      <div class="game-top">
+        <button class="btn-back" onclick="goHome()" aria-label="Retour">←</button>
+        <h2>✏️ Atelier Dessin</h2>
+        <div class="draw-top-actions">
+          <button class="mini-btn" onclick="clearCanvas()">🗑️</button>
+          <button class="mini-btn" onclick="saveDrawing()">💾</button>
+        </div>
+      </div>
+      <div class="draw-toolbar">
+        <div class="draw-tools">
+          <button class="tool-btn active" id="tool-brush" onclick="setTool('brush', this)" title="Pinceau">🖌️</button>
+          <button class="tool-btn" id="tool-rainbow" onclick="setTool('rainbow', this)" title="Arc-en-ciel">🌈</button>
+          <button class="tool-btn" id="tool-stamp" onclick="setTool('stamp', this)" title="Tampons">🦄</button>
+          <button class="tool-btn" id="tool-eraser" onclick="setTool('eraser', this)" title="Gomme">🧹</button>
+        </div>
+        <div class="draw-palette" id="draw-palette"></div>
+        <div class="brush-sizes">
+          <button class="size-btn active" onclick="setBrush(5, this)"><span style="width:6px;height:6px"></span></button>
+          <button class="size-btn" onclick="setBrush(12, this)"><span style="width:12px;height:12px"></span></button>
+          <button class="size-btn" onclick="setBrush(24, this)"><span style="width:18px;height:18px"></span></button>
+        </div>
+      </div>
+      <div class="stamps-row hidden" id="stamps-row"></div>
+      <canvas id="draw-canvas" class="draw-canvas"></canvas>
+      <div class="draw-templates">
+        <span>Modèles :</span>
+        <button onclick="setTemplate('maison')">🏠</button>
+        <button onclick="setTemplate('soleil')">☀️</button>
+        <button onclick="setTemplate('arbre')">🌳</button>
+        <button onclick="setTemplate('chat')">🐱</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESULT OVERLAY ===================== -->
+  <div id="result-overlay" class="overlay hidden">
+    <div class="result-card clay">
+      <div class="result-mascot" id="result-mascot">🤩</div>
+      <div class="result-stars">
+        <span class="rstar" id="rstar-0">★</span>
+        <span class="rstar" id="rstar-1">★</span>
+        <span class="rstar" id="rstar-2">★</span>
+      </div>
+      <h3 id="result-title">Incroyable&nbsp;!</h3>
+      <p id="result-text"></p>
+      <p class="result-xp" id="result-xp"></p>
+      <div class="result-actions">
+        <button class="btn3d btn-replay" id="result-replay">🔁 Rejouer</button>
+        <button class="btn3d btn-neutral" onclick="closeResult(); goHome()">🏠 Accueil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PROFILE / BADGES ===================== -->
+  <div id="profile-overlay" class="overlay hidden">
+    <div class="profile-card clay">
+      <button class="close-x" onclick="closeProfile()" aria-label="Fermer">✕</button>
+      <div class="profile-head">
+        <div class="profile-avatar" id="profile-avatar">🦊</div>
+        <div>
+          <h3 id="profile-name">Champion</h3>
+          <button class="mini-btn" onclick="closeProfile(); showOnboarding(true)">✏️ Modifier</button>
+        </div>
+      </div>
+      <div class="profile-stats">
+        <div class="pstat"><b id="profile-level">1</b><span>Niveau</span></div>
+        <div class="pstat"><b id="profile-stars">0</b><span>Étoiles</span></div>
+        <div class="pstat"><b id="profile-streak">0</b><span>Jours 🔥</span></div>
+      </div>
+      <div class="profile-level-bar"><span id="profile-level-fill"></span></div>
+      <h4 class="badges-title">🏆 Mes badges</h4>
+      <div class="badges-grid" id="badges-grid"></div>
+    </div>
+  </div>
+
+  <!-- ===================== ONBOARDING ===================== -->
+  <div id="onboarding" class="overlay hidden">
+    <div class="onb-card clay">
+      <div class="onb-mascot">🦊</div>
+      <h2>Bienvenue sur KidLearn&nbsp;!</h2>
+      <p>Choisis ton avatar&nbsp;:</p>
+      <div class="avatar-grid" id="avatar-grid"></div>
+      <input type="text" id="name-input" maxlength="14" placeholder="Ton prénom (ou ton surnom !)" autocomplete="off">
+      <button class="btn3d btn-start" onclick="finishOnboarding()">C'est parti&nbsp;! 🚀</button>
+    </div>
+  </div>
+
+  <!-- ===================== TOASTS & FX ===================== -->
+  <div class="toast" id="toast"></div>
+  <div class="badge-toast" id="badge-toast"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="js/core.js"></script>
+  <script src="js/games.js"></script>
+</body>
+</html>
